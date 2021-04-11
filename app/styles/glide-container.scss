@@ -7,6 +7,14 @@ body {
   align-items: center;
   background-color: black;
 }
+.glide {
+  display: flex; //Important as we want the individual sliders to fill up the glide container; all child elements would be shown in first slide without it
+  height: 100%;
+  flex-direction: column;
+}
 .GlideContainer {
   color: white;
+  width: 400px;
+  background-color: #002240;
+  padding: 12px;
 }
