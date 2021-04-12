@@ -12,5 +12,10 @@ export default class GlideContainerComponent extends Component {
     });
     glideHorizontalGlider.mount();
     new KeenSlider('.KeenHorizontalGlider');
+    new KeenSlider(".KeenVerticalGlider", {
+      spacing: 10,
+      centered: true,
+      vertical: true,
+    })
   }
 }

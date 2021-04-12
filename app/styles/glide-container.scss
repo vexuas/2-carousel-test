@@ -41,6 +41,16 @@ body {
     font-weight: 600;
   }
 }
+.KeenHorizontalSlider {
+  &.keen-slider {
+    margin-bottom: 42px;
+  }
+}
+.KeenVerticalGlider {
+  &.keen-slider {
+    height: 300px;
+  }
+}
 .keen-slider__slide {
   display: flex;
   align-items: center;
