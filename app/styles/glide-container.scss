@@ -11,10 +11,20 @@ body {
   display: flex; //Important as we want the individual sliders to fill up the glide container; all child elements would be shown in first slide without it
   height: 100%;
   flex-direction: column;
+  &__slides {
+    margin: 32px 0;
+  }
 }
 .GlideContainer {
   color: white;
   width: 400px;
   background-color: #002240;
-  padding: 12px;
+  border-radius: 8px;
+  padding: 18px;
+}
+.GlideHorizontalGlider {
+  &__header {
+    font-size: 24px;
+    font-weight: 600;
+  }
 }
