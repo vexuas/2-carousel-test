@@ -1,14 +1,16 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import Glide from '@glidejs/glide';
+import KeenSlider from 'keen-slider';
 
 export default class GlideContainerComponent extends Component {
   @action 
   onLoad(){
-    const horizontalGlider = new Glide('.GlideHorizontalGlider', {
+    const glideHorizontalGlider = new Glide('.GlideHorizontalGlider', {
       type: 'slider',
       perView: 1,
     });
-    horizontalGlider.mount();
+    glideHorizontalGlider.mount();
+    const keenHorizontalGlider = new KeenSlider('#my-keen-slider');
   }
 }
