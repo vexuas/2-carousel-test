@@ -11,11 +11,18 @@ export default class GlideContainerComponent extends Component {
       perView: 1,
     });
     glideHorizontalGlider.mount();
-    new KeenSlider('.KeenHorizontalGlider');
-    new KeenSlider(".KeenVerticalGlider", {
-      spacing: 10,
-      centered: true,
+
+    new KeenSlider(".KeenVerticalGlider-1", {
       vertical: true,
+      centered: true
+    })
+    new KeenSlider(".KeenVerticalGlider-2", {
+      vertical: true,
+      centered: true
+    })
+    new KeenSlider(".KeenVerticalGlider-3", {
+      vertical: true,
+      centered: true
     })
   }
 }

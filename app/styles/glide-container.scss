@@ -24,8 +24,6 @@ body {
 }
 .GlideHorizontalGlider {
   margin-bottom: 42px;
-  background-color: #03447d;
-  padding: 16px;
   border-radius: 8px;
   &__header {
     font-size: 24px;
@@ -39,11 +37,6 @@ body {
   &__header {
     font-size: 24px;
     font-weight: 600;
-  }
-}
-.KeenHorizontalSlider {
-  &.keen-slider {
-    margin-bottom: 42px;
   }
 }
 .KeenVerticalGlider {
@@ -61,6 +54,7 @@ body {
   height: 300px;
   border-radius: 8px;
 }
+
 .number-slide1 {
   background: rgb(64, 175, 255);
   background: linear-gradient(
