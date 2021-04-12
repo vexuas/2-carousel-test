@@ -9,10 +9,24 @@ export default class GlideContainerComponent extends Component {
     const glideHorizontalGlider = new Glide('.GlideHorizontalGlider', {
       type: 'slider',
       perView: 1,
+      rewind: false
     });
     glideHorizontalGlider.mount();
 
     new KeenSlider(".KeenVerticalGlider-1", {
+      // created: function (instance) {
+      //   document
+      //     .getElementById("arrow-left")
+      //     .addEventListener("click", function () {
+      //       instance.prev()
+      //     })
+    
+      //   document
+      //     .getElementById("arrow-right")
+      //     .addEventListener("click", function () {
+      //       instance.next()
+      //     })
+      // },
       vertical: true,
       centered: true
     })
