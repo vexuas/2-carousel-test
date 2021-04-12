@@ -14,29 +14,58 @@ export default class GlideContainerComponent extends Component {
     glideHorizontalGlider.mount();
 
     new KeenSlider(".KeenVerticalGlider-1", {
-      // created: function (instance) {
-      //   document
-      //     .getElementById("arrow-left")
-      //     .addEventListener("click", function () {
-      //       instance.prev()
-      //     })
-    
-      //   document
-      //     .getElementById("arrow-right")
-      //     .addEventListener("click", function () {
-      //       instance.next()
-      //     })
-      // },
+      created: function (instance) {
+        document
+          .querySelector('.glide__arrow--up')
+          .addEventListener("click", function () {
+            instance.prev()
+          })
+        document
+          .querySelector('.glide__arrow--down')
+          .addEventListener("click", function () {
+            instance.next()
+          })
+      },
+      move: function() {
+        console.log('h;i')
+      },
       vertical: true,
-      centered: true
+      centered: true,
+      controls: false
     })
     new KeenSlider(".KeenVerticalGlider-2", {
+      created: function (instance) {
+        document
+          .querySelector('.glide__arrow--up')
+          .addEventListener("click", function () {
+            instance.prev()
+          })
+        document
+          .querySelector('.glide__arrow--down')
+          .addEventListener("click", function () {
+            instance.next()
+          })
+      },
       vertical: true,
-      centered: true
+      centered: true,
+      controls: false
     })
     new KeenSlider(".KeenVerticalGlider-3", {
+      created: function (instance) {
+        document
+          .querySelector('.glide__arrow--up')
+          .addEventListener("click", function () {
+            instance.prev()
+          })
+        document
+          .querySelector('.glide__arrow--down')
+          .addEventListener("click", function () {
+            instance.next()
+          })
+      },
       vertical: true,
-      centered: true
+      centered: true,
+      controls: false
     })
   }
 }

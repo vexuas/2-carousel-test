@@ -6,6 +6,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .glide {
   display: flex; //Important as we want the individual sliders to fill up the glide container; all child elements would be shown in first slide without it
@@ -46,11 +47,11 @@ body {
     }
   }
   .glide__arrow--left {
-    right: 68px;
+    right: 42px;
     top: -14px;
   }
   .glide__arrow--right {
-    left: 468px;
+    left: 442px;
     top: -14px;
   }
   .glide__arrow--up {
@@ -83,7 +84,7 @@ body {
   font-size: 50px;
   color: #fff;
   font-weight: 500;
-  height: 300px;
+  height: 500px;
   border-radius: 8px;
 }
 
