@@ -11,6 +11,6 @@ export default class GlideContainerComponent extends Component {
       perView: 1,
     });
     glideHorizontalGlider.mount();
-    const keenHorizontalGlider = new KeenSlider('#my-keen-slider');
+    new KeenSlider('.KeenHorizontalGlider');
   }
 }
