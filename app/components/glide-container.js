@@ -12,19 +12,33 @@ export default class GlideContainerComponent extends Component {
       rewind: false,
     });
     glideHorizontalGlider.mount();
+    glideHorizontalGlider.on('run', function(){
+      console.log(glideHorizontalGlider.index);
+    });
 
     new KeenSlider('.KeenVerticalGlider-1', {
       created: function (instance) {
         document
-          .querySelector('.glide__arrow--up')
+          .querySelector('.glide__arrow--up[data-arrow-down="0"]')
           .addEventListener('click', function () {
             instance.prev();
-          })
+          });
         document
-          .querySelector('.glide__arrow--down')
+          .querySelector('.glide__arrow--down[data-arrow-down="0"]')
           .addEventListener('click', function () {
             instance.next();
-          })
+          });
+        window.addEventListener('keydown', function (event) {
+          if (event.keyCode === 38) { //up arrow
+            instance.prev();
+          }
+          if (event.keyCode === 40) { //down arrow
+            instance.next();
+          }
+          if(event.keyCode === 37 || event.keyCode === 39){
+            instance.moveToSlide(0, 2000);
+          }
+        });
       },
       vertical: true,
       centered: true,
@@ -33,15 +47,26 @@ export default class GlideContainerComponent extends Component {
     new KeenSlider('.KeenVerticalGlider-2', {
       created: function (instance) {
         document
-          .querySelector('.glide__arrow--up')
+          .querySelector('.glide__arrow--up[data-arrow-down="1"]')
           .addEventListener('click', function () {
             instance.prev();
           });
         document
-          .querySelector('.glide__arrow--down')
+          .querySelector('.glide__arrow--down[data-arrow-down="1"]')
           .addEventListener('click', function () {
             instance.next();
           });
+        window.addEventListener('keydown', function (event) {
+          if (event.keyCode === 38) { //up arrow
+            instance.prev();
+          }
+          if (event.keyCode === 40) { //down arrow
+            instance.next();
+          }
+          if(event.keyCode === 37 || event.keyCode === 39){
+            instance.moveToSlide(0, 2000);
+          }
+        });
       },
       vertical: true,
       centered: true,
@@ -50,15 +75,26 @@ export default class GlideContainerComponent extends Component {
     new KeenSlider('.KeenVerticalGlider-3', {
       created: function (instance) {
         document
-          .querySelector('.glide__arrow--up')
+          .querySelector('.glide__arrow--up[data-arrow-down="2"]')
           .addEventListener('click', function () {
             instance.prev();
-          })
+          });
         document
-          .querySelector('.glide__arrow--down')
+          .querySelector('.glide__arrow--down[data-arrow-down="2"]')
           .addEventListener('click', function () {
             instance.next();
-          })
+          });
+        window.addEventListener('keydown', function (event) {
+          if (event.keyCode === 38) { //up arrow
+            instance.prev();
+          }
+          if (event.keyCode === 40) { //down arrow
+            instance.next();
+          }
+          if(event.keyCode === 37 || event.keyCode === 39){
+            instance.moveToSlide(0, 2000);
+          }
+        });
       },
       vertical: true,
       centered: true,
