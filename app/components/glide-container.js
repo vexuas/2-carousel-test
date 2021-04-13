@@ -48,6 +48,10 @@ export default class GlideContainerComponent extends Component {
               instance.next();
             }
           });
+          updateVerticalClasses(instance);
+        },
+        slideChanged: function(instance){
+          updateVerticalClasses(instance);
         },
         vertical: true,
         centered: true,
@@ -56,6 +60,21 @@ export default class GlideContainerComponent extends Component {
       });
       verticalGlides.push(verticalGlide);
     });
+    //Adds disable classes to relevant navigation controls when active vertical slide is first or last
+    function updateVerticalClasses(instance){
+      let slide = instance.details().relativeSlide;
+      let arrowUp = document.querySelector('.glide__arrow--up[data-arrow-up="0"]');
+      let arrowDown = document.querySelector('.glide__arrow--down[data-arrow-down="0"]');
+      slide === 0 ? arrowUp.classList.add('arrow--disabled') : arrowUp.classList.remove('arrow--disabled');
+      slide === instance.details().size - 1 ? arrowDown.classList.add('arrow--disabled') : arrowDown.classList.remove('arrow--disabled');
+    }
+    function updateHorizontalClasses(slide){
+      let arrowRight = document.querySelector('.glide__arrow--right');
+      let arrowLeft = document.querySelector('.glide__arrow--left');
+
+      slide === 0 ? arrowLeft.classList.add('arrow--disabled') : arrowLeft.classList.remove('arrow--disabled');
+      slide === dummyData.length - 1 ? arrowRight.classList.add('arrow--disabled') : arrowRight.classList.remove('arrow--disabled');
+    }
     /**
      * Hacky way to start on 1st element of vertical slide when moving horizontally
      * Currently all the vertical slides move together when using the navigation controls
@@ -64,8 +83,13 @@ export default class GlideContainerComponent extends Component {
      * Best way is to just move the current slide instead of everything but need to look into that more
      */
     glideHorizontalGlider.on('run', function(){
-      verticalGlides[glideHorizontalGlider.index].refresh();
+      const ghIndex = glideHorizontalGlider.index;
+      updateHorizontalClasses(ghIndex);
+      verticalGlides[ghIndex].refresh();
     });
+    glideHorizontalGlider.on('mount.after', function(){
+      updateHorizontalClasses(glideHorizontalGlider.index);
+    })
     glideHorizontalGlider.mount();
   }
 }

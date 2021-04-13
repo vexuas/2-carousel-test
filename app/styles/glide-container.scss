@@ -45,6 +45,11 @@ body {
     &:hover {
       background-color: #a0a0a0;
     }
+    &.arrow--disabled {
+      pointer-events: none;
+      color: #a8acaf;
+      background-color: #606060;
+    }
   }
   .glide__arrow--left {
     right: 42px;
