@@ -38,12 +38,12 @@ export default class GlideContainerComponent extends Component {
       let verticalGlide = new KeenSlider(`.KeenVerticalGlider-${index}`, {
         created: function (instance) {
           document
-            .querySelector('.glide__arrow--up[data-arrow-up="0"]')
+            .querySelector('.glide__arrow--up')
             .addEventListener('click', function () {
               instance.prev();
             });
           document
-            .querySelector('.glide__arrow--down[data-arrow-down="0"]')
+            .querySelector('.glide__arrow--down')
             .addEventListener('click', function () {
               instance.next();
             });
@@ -70,8 +70,8 @@ export default class GlideContainerComponent extends Component {
      //Adds disable classes to relevant navigation controls when active vertical slide is first or last
     function updateVerticalClasses(instance){
       let slide = instance.details().relativeSlide;
-      let arrowUp = document.querySelector('.glide__arrow--up[data-arrow-up="0"]');
-      let arrowDown = document.querySelector('.glide__arrow--down[data-arrow-down="0"]');
+      let arrowUp = document.querySelector('.glide__arrow--up');
+      let arrowDown = document.querySelector('.glide__arrow--down');
       slide === 0 ? arrowUp.classList.add('arrow--disabled') : arrowUp.classList.remove('arrow--disabled');
       slide === instance.details().size - 1 ? arrowDown.classList.add('arrow--disabled') : arrowDown.classList.remove('arrow--disabled');
     }
@@ -85,7 +85,7 @@ export default class GlideContainerComponent extends Component {
     /**
      * Hacky way to start on 1st element of vertical slide when moving horizontally
      * Currently all the vertical slides move together when using the navigation controls
-     * This is due each vertical slide initialising on the same controls
+     * This is due each vertical slide initialising on the same one control
      * To avoid confusion, this function refreshes and reinitialises the vertical destination slide when moving the horizontal slide
      * Best way is to just move the current slide instead of everything but need to look into that more
      */
