@@ -4,6 +4,25 @@ import Glide from '@glidejs/glide';
 import KeenSlider from 'keen-slider';
 
 export default class GlideContainerComponent extends Component {
+  /**
+   * Dummy data, replace this with what you'll get in the route model
+   * Horizontal data consumes the parent object of the dummy array
+   * Vertical data consumes the array of a child object
+  **/
+  dummyData =[
+    {
+      title: 'Zeroes',
+      touchpoints: [{}, {}, {}]
+    },
+    {
+      title: 'Ones',
+      touchpoints: [{}, {}, {}]
+    },
+    {
+      title: 'Twos',
+      touchpoints: [{}, {}, {}]
+    },
+  ];
   @action 
   onLoad(){
     let verticalGlides = [];
@@ -13,21 +32,8 @@ export default class GlideContainerComponent extends Component {
       perView: 1,
       rewind: false,
     });
-    const dummyData = [
-      {
-        title: 'Zeroes',
-        touchpoints: [{}, {}, {}]
-      },
-      {
-        title: 'Ones',
-        touchpoints: [{}, {}, {}]
-      },
-      {
-        title: 'Twos',
-        touchpoints: [{}, {}, {}]
-      },
-    ];
-    dummyData.forEach((element, index) => {
+    //Create vertical slides for each horizontal slide
+    this.dummyData.forEach((element, index) => {
       let verticalGlide = new KeenSlider(`.KeenVerticalGlider-${index}`, {
         created: function (instance) {
           document
@@ -60,7 +66,7 @@ export default class GlideContainerComponent extends Component {
       });
       verticalGlides.push(verticalGlide);
     });
-    //Adds disable classes to relevant navigation controls when active vertical slide is first or last
+     //Adds disable classes to relevant navigation controls when active vertical slide is first or last
     function updateVerticalClasses(instance){
       let slide = instance.details().relativeSlide;
       let arrowUp = document.querySelector('.glide__arrow--up[data-arrow-up="0"]');
@@ -68,6 +74,7 @@ export default class GlideContainerComponent extends Component {
       slide === 0 ? arrowUp.classList.add('arrow--disabled') : arrowUp.classList.remove('arrow--disabled');
       slide === instance.details().size - 1 ? arrowDown.classList.add('arrow--disabled') : arrowDown.classList.remove('arrow--disabled');
     }
+    //Adds disable classes to relevant navigation controls when active horizontal slide is first or last
     function updateHorizontalClasses(slide){
       let arrowRight = document.querySelector('.glide__arrow--right');
       let arrowLeft = document.querySelector('.glide__arrow--left');
@@ -87,9 +94,11 @@ export default class GlideContainerComponent extends Component {
       updateHorizontalClasses(ghIndex);
       verticalGlides[ghIndex].refresh();
     });
+    //Initial setup of classes
     glideHorizontalGlider.on('mount.after', function(){
       updateHorizontalClasses(glideHorizontalGlider.index);
     })
+    //Mounts horizontal glider to dom
     glideHorizontalGlider.mount();
   }
 }
