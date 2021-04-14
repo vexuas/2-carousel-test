@@ -5,10 +5,10 @@ import KeenSlider from 'keen-slider';
 
 export default class GlideContainerComponent extends Component {
   /**
-     * Dummy data, replace this with what you'll get in the route model
-     * Horizontal data consumes the parent object of the dummy array
-     * Vertical data consumes the array of a child object
-     **/
+   * Dummy data, replace this with what you'll get in the route model
+   * Horizontal data consumes the parent object of the dummy array
+   * Vertical data consumes the array of a child object
+   **/
   dummyData =[
     {
       title: 'Zeroes',
@@ -47,7 +47,7 @@ export default class GlideContainerComponent extends Component {
             .addEventListener('click', function () {
               instance.next();
             });
-          window.addEventListener('keydown', function (event) {
+          document.addEventListener('keydown', function (event) {
             if (event.keyCode === 38) { //up arrow
               instance.prev();
             }
@@ -94,7 +94,28 @@ export default class GlideContainerComponent extends Component {
       updateHorizontalClasses(ghIndex);
       verticalGlides[ghIndex].refresh();
     });
-    //Initial setup of classes
+    /**
+     * Have to manually disable the horizontal slide if active slide is either first or last
+     * Clicking on navigation buttons is already handled by the disable css classes but we have to disable keyboard shortcuts
+     */
+    document.addEventListener('keydown', function(event){
+      const ghIndex = glideHorizontalGlider.index;
+      if(event.keyCode === 37){
+        if(ghIndex - 1 < 0){
+          glideHorizontalGlider.disable();
+        }else if(ghIndex - 1 >= 0){
+          glideHorizontalGlider.enable();
+        }
+      }
+      if(event.keyCode === 39){
+        if(ghIndex + 1 === dummyData.length){
+          glideHorizontalGlider.disable();
+        }else if(ghIndex + 1 < dummyData.length){
+          glideHorizontalGlider.enable();
+        }
+      }
+    })
+    //Initial setup of css classes
     glideHorizontalGlider.on('mount.after', function(){
       updateHorizontalClasses(glideHorizontalGlider.index);
     })
