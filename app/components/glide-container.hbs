@@ -5,27 +5,15 @@
   <div class="glide GlideHorizontalGlider">
     <div class="glide__track" data-glide-el="track">
       <ul class="glide__slides">
-        <li class="glide__slide number-slide1">
-          <div class="keen-slider KeenVerticalGlider KeenVerticalGlider-0">
-            <div class="keen-slider__slide">0.0</div>
-            <div class="keen-slider__slide">0.1</div>
-            <div class="keen-slider__slide">0.2</div>
-          </div>
-        </li>
-        <li class="glide__slide number-slide2">
-          <div class="keen-slider KeenVerticalGlider KeenVerticalGlider-1">
-            <div class="keen-slider__slide">1.0</div>
-            <div class="keen-slider__slide">1.1</div>
-            <div class="keen-slider__slide">1.2</div>
-          </div>
-        </li>
-        <li class="glide__slide number-slide3">
-          <div class="keen-slider KeenVerticalGlider KeenVerticalGlider-2">
-            <div class="keen-slider__slide">2.0</div>
-            <div class="keen-slider__slide">2.1</div>
-            <div class="keen-slider__slide">2.2</div>
-          </div>
-        </li>
+        {{#each this.dummyData as |slide index|}}
+          <li class="glide__slide number-slide{{index}}">
+            <div class="keen-slider KeenVerticalGlider KeenVerticalGlider-{{index}}">
+              {{#each slide.touchpoints as |subSlide|}}
+                <div class="keen-slider__slide">{{subSlide}}</div>
+              {{/each}}
+            </div>
+          </li>
+        {{/each}}
       </ul>
     </div>
     <div class="glide__arrows" data-glide-el="controls">

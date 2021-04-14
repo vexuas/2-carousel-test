@@ -4,6 +4,25 @@ import Glide from '@glidejs/glide';
 import KeenSlider from 'keen-slider';
 
 export default class GlideContainerComponent extends Component {
+  /**
+     * Dummy data, replace this with what you'll get in the route model
+     * Horizontal data consumes the parent object of the dummy array
+     * Vertical data consumes the array of a child object
+     **/
+  dummyData =[
+    {
+      title: 'Zeroes',
+      touchpoints: [0.0, 0.1, 0.2]
+    },
+    {
+      title: 'Ones',
+      touchpoints: [1.0, 1.1, 1.2]
+    },
+    {
+      title: 'Twos',
+      touchpoints: [2.0, 2.1, 2.2]
+    },
+  ];
   @action 
   onLoad(){
     let verticalGlides = [];
@@ -13,25 +32,7 @@ export default class GlideContainerComponent extends Component {
       perView: 1,
       rewind: false,
     });
-     /**
-     * Dummy data, replace this with what you'll get in the route model
-     * Horizontal data consumes the parent object of the dummy array
-     * Vertical data consumes the array of a child object
-     **/
-    const dummyData =[
-      {
-        title: 'Zeroes',
-        touchpoints: [{}, {}, {}]
-      },
-      {
-        title: 'Ones',
-        touchpoints: [{}, {}, {}]
-      },
-      {
-        title: 'Twos',
-        touchpoints: [{}, {}, {}]
-      },
-    ];
+    const dummyData = this.dummyData;// Have to redeclare to make it easier to consume within glide classes
     //Create vertical slides for each horizontal slide
     dummyData.forEach((element, index) => {
       let verticalGlide = new KeenSlider(`.KeenVerticalGlider-${index}`, {
