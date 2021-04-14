@@ -1,0 +1,39 @@
+.glide__arrows {
+  position: absolute;
+  top: 50%;
+  .glide__arrow {
+    cursor: pointer;
+    min-width: 80px;
+    position: absolute;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    background-color: #e1eaf2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    &:hover {
+      background-color: #a0a0a0;
+    }
+    &.arrow--disabled {
+      pointer-events: none;
+      color: #a8acaf;
+      background-color: #606060;
+    }
+  }
+  .glide__arrow--left {
+    right: 42px;
+    top: -14px;
+  }
+  .glide__arrow--right {
+    left: 442px;
+    top: -14px;
+  }
+  .glide__arrow--up {
+    min-width: 400px;
+    bottom: 165px;
+  }
+  .glide__arrow--down {
+    min-width: 400px;
+    top: 165px;
+  }
+}
