@@ -4,25 +4,6 @@ import Glide from '@glidejs/glide';
 import KeenSlider from 'keen-slider';
 
 export default class GlideContainerComponent extends Component {
-  /**
-   * Dummy data, replace this with what you'll get in the route model
-   * Horizontal data consumes the parent object of the dummy array
-   * Vertical data consumes the array of a child object
-  **/
-  dummyData =[
-    {
-      title: 'Zeroes',
-      touchpoints: [{}, {}, {}]
-    },
-    {
-      title: 'Ones',
-      touchpoints: [{}, {}, {}]
-    },
-    {
-      title: 'Twos',
-      touchpoints: [{}, {}, {}]
-    },
-  ];
   @action 
   onLoad(){
     let verticalGlides = [];
@@ -32,8 +13,27 @@ export default class GlideContainerComponent extends Component {
       perView: 1,
       rewind: false,
     });
+     /**
+     * Dummy data, replace this with what you'll get in the route model
+     * Horizontal data consumes the parent object of the dummy array
+     * Vertical data consumes the array of a child object
+     **/
+    const dummyData =[
+      {
+        title: 'Zeroes',
+        touchpoints: [{}, {}, {}]
+      },
+      {
+        title: 'Ones',
+        touchpoints: [{}, {}, {}]
+      },
+      {
+        title: 'Twos',
+        touchpoints: [{}, {}, {}]
+      },
+    ];
     //Create vertical slides for each horizontal slide
-    this.dummyData.forEach((element, index) => {
+    dummyData.forEach((element, index) => {
       let verticalGlide = new KeenSlider(`.KeenVerticalGlider-${index}`, {
         created: function (instance) {
           document
@@ -78,7 +78,6 @@ export default class GlideContainerComponent extends Component {
     function updateHorizontalClasses(slide){
       let arrowRight = document.querySelector('.glide__arrow--right');
       let arrowLeft = document.querySelector('.glide__arrow--left');
-
       slide === 0 ? arrowLeft.classList.add('arrow--disabled') : arrowLeft.classList.remove('arrow--disabled');
       slide === dummyData.length - 1 ? arrowRight.classList.add('arrow--disabled') : arrowRight.classList.remove('arrow--disabled');
     }
