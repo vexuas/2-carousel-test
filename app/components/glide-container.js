@@ -32,6 +32,7 @@ export default class GlideContainerComponent extends Component {
       rewind: false,
     });
     const dummyData = this.dummyData;// Have to redeclare to make it easier to consume within glide classes
+    let currentVerticalSlide;
     /**
      * As there is only one set of control for vertical slides, creating all the vertical slides would only result all of them pointing to the same navigation buttons
      * This would move all the slides even if they're not on focus. This also would prove a problem when a horizontal slide doesn't have the same number of items in its vertical slider i.e. mismatch in disabling control
@@ -62,6 +63,7 @@ export default class GlideContainerComponent extends Component {
           updateVerticalClasses(instance);
         },
         slideChanged: function(instance){
+          console.log('hello');
           updateVerticalClasses(instance);
         },
         vertical: true,
@@ -91,9 +93,6 @@ export default class GlideContainerComponent extends Component {
       slide === 0 ? arrowLeft.classList.add('arrow--disabled') : arrowLeft.classList.remove('arrow--disabled');
       slide === dummyData.length - 1 ? arrowRight.classList.add('arrow--disabled') : arrowRight.classList.remove('arrow--disabled');
     }
-    glideHorizontalGlider.on('run.before', function(){
-      
-    })
     /**
      * Hacky way to start on 1st element of vertical slide when moving horizontally
      * Currently all the vertical slides move together when using the navigation controls
@@ -102,10 +101,10 @@ export default class GlideContainerComponent extends Component {
      * Best way is to just move the current slide instead of everything but need to look into that more
      */
     glideHorizontalGlider.on('run', function(){
-      const ghIndex = glideHorizontalGlider.index;
+      const ghIndex = glideHorizontalGlider.index
       updateHorizontalClasses(ghIndex);
       updateVerticalControl(ghIndex);
-      createVerticalSlide(ghIndex)
+      currentVerticalSlide = createVerticalSlide(ghIndex);
     });
     /**
      * Have to manually disable the horizontal slide if active slide is either first or last
@@ -131,7 +130,7 @@ export default class GlideContainerComponent extends Component {
     //Initial setup of css classes
     glideHorizontalGlider.on('mount.after', function(){
       updateHorizontalClasses(glideHorizontalGlider.index);
-      createVerticalSlide(glideHorizontalGlider.index);
+      currentVerticalSlide = createVerticalSlide(glideHorizontalGlider.index);
     })
     //Mounts horizontal glider to dom
     glideHorizontalGlider.mount();
