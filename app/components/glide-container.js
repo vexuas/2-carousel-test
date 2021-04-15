@@ -88,6 +88,7 @@ export default class GlideContainerComponent extends Component {
     }
     //Adds disable classes to relevant navigation controls when active horizontal slide is first or last
     function updateHorizontalClasses(slide){
+      console.log(slide);
       let arrowRight = document.querySelector('.glide__arrow--right');
       let arrowLeft = document.querySelector('.glide__arrow--left');
       slide === 0 ? arrowLeft.classList.add('arrow--disabled') : arrowLeft.classList.remove('arrow--disabled');
