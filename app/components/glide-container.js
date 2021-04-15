@@ -12,11 +12,11 @@ export default class GlideContainerComponent extends Component {
   dummyData =[
     {
       title: 'Zeroes',
-      touchpoints: [0.0, 0.1, 0.2]
+      touchpoints: [0.0]
     },
     {
       title: 'Ones',
-      touchpoints: [1.0, 1.1, 1.2]
+      touchpoints: [1.0, 1.1]
     },
     {
       title: 'Twos',
@@ -25,7 +25,6 @@ export default class GlideContainerComponent extends Component {
   ];
   @action 
   onLoad(){
-    let verticalGlides = [];
     //Base horizontal right to left slider
     const glideHorizontalGlider = new Glide('.GlideHorizontalGlider', {
       type: 'slider',
@@ -33,17 +32,23 @@ export default class GlideContainerComponent extends Component {
       rewind: false,
     });
     const dummyData = this.dummyData;// Have to redeclare to make it easier to consume within glide classes
-    //Create vertical slides for each horizontal slide
-    dummyData.forEach((element, index) => {
+    let currentVerticalSlide;
+    /**
+     * As there is only one set of control for vertical slides, creating all the vertical slides would only result all of them pointing to the same navigation buttons
+     * This would move all the slides even if they're not on focus. This also would prove a problem when a horizontal slide doesn't have the same number of items in its vertical slider i.e. mismatch in disabling control
+     * To handle this, we only want to initialise a vertical slider when we move to that current horizontal slide
+     * @param {number} index - current index of horizontal slider
+     */
+    function createVerticalSlide(index){
       let verticalGlide = new KeenSlider(`.KeenVerticalGlider-${index}`, {
         created: function (instance) {
           document
-            .querySelector('.glide__arrow--up')
+            .querySelector(`.glide__arrow--up[data-arrow-up="${index}"]`)
             .addEventListener('click', function () {
               instance.prev();
             });
           document
-            .querySelector('.glide__arrow--down')
+            .querySelector(`.glide__arrow--down[data-arrow-down="${index}"]`)
             .addEventListener('click', function () {
               instance.next();
             });
@@ -58,6 +63,7 @@ export default class GlideContainerComponent extends Component {
           updateVerticalClasses(instance);
         },
         slideChanged: function(instance){
+          console.log('hello');
           updateVerticalClasses(instance);
         },
         vertical: true,
@@ -65,13 +71,18 @@ export default class GlideContainerComponent extends Component {
         controls: false,
         resetSlide: true,
       });
-      verticalGlides.push(verticalGlide);
-    });
-     //Adds disable classes to relevant navigation controls when active vertical slide is first or last
+      return verticalGlide;
+    }
+    //Dynamically changes the data-value of the vertical controls when going through each horizontal slide
+    function updateVerticalControl(index){
+      document.querySelector('.glide__arrow--up').setAttribute('data-arrow-up', index);
+      document.querySelector('.glide__arrow--down').setAttribute('data-arrow-down', index);
+    }
+    //Adds disable classes to relevant navigation controls when active vertical slide is first or last
     function updateVerticalClasses(instance){
       let slide = instance.details().relativeSlide;
-      let arrowUp = document.querySelector('.glide__arrow--up');
-      let arrowDown = document.querySelector('.glide__arrow--down');
+      let arrowUp = document.querySelector(`.glide__arrow--up[data-arrow-up="${glideHorizontalGlider.index}"]`);
+      let arrowDown = document.querySelector(`.glide__arrow--down[data-arrow-down="${glideHorizontalGlider.index}"]`);
       slide === 0 ? arrowUp.classList.add('arrow--disabled') : arrowUp.classList.remove('arrow--disabled');
       slide === instance.details().size - 1 ? arrowDown.classList.add('arrow--disabled') : arrowDown.classList.remove('arrow--disabled');
     }
@@ -90,9 +101,10 @@ export default class GlideContainerComponent extends Component {
      * Best way is to just move the current slide instead of everything but need to look into that more
      */
     glideHorizontalGlider.on('run', function(){
-      const ghIndex = glideHorizontalGlider.index;
+      const ghIndex = glideHorizontalGlider.index
       updateHorizontalClasses(ghIndex);
-      verticalGlides[ghIndex].refresh();
+      updateVerticalControl(ghIndex);
+      currentVerticalSlide = createVerticalSlide(ghIndex);
     });
     /**
      * Have to manually disable the horizontal slide if active slide is either first or last
@@ -118,6 +130,7 @@ export default class GlideContainerComponent extends Component {
     //Initial setup of css classes
     glideHorizontalGlider.on('mount.after', function(){
       updateHorizontalClasses(glideHorizontalGlider.index);
+      currentVerticalSlide = createVerticalSlide(glideHorizontalGlider.index);
     })
     //Mounts horizontal glider to dom
     glideHorizontalGlider.mount();
